@@ -1,0 +1,93 @@
+#StickyTableHeader{
+    position: fixed;
+    padding-top: 81px;
+}
+
+#StickyTableHeader table.banggia {
+    border-collapse: collapse;
+    font-family: helvetica, arial, sans-serif;
+    font-size: 12px;
+    table-layout: fixed;
+    width: 100%;
+}
+
+#StickyTableHeader table.banggia {
+    background: var(--bg-body-dark);
+    box-shadow: 0 4px 10px #0006;
+    overflow: visible;
+    width: 100%;
+}
+
+#StickyTableHeader table.banggia.fixed-header {
+    min-width: 992px;
+}
+
+#StickyTableHeader colgroup {
+    display: table-column-group;
+    unicode-bidi: isolate;
+}
+
+#StickyTableHeader table.banggia .col-symbol {
+    width: 4%;
+}
+
+#StickyTableHeader table.banggia .col-price {
+    width: 3.25%;
+}
+
+#StickyTableHeader table.banggia .col-vol.col-vol-lg {
+    width: 4.75%;
+}
+
+#StickyTableHeader table.banggia .col-vol {
+    width: 4.25%;
+}
+
+#StickyTableHeader table.banggia thead {
+    background: none;
+}
+
+#StickyTableHeader table.banggia tr td, table.banggia tr th {
+    border: 1px solid var(--boder-header-table-color);
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#StickyTableHeader table.banggia tr th {
+    font-size: 12px;
+}
+
+#StickyTableHeader table.banggia>thead>tr th {
+    border-width: 1px;
+    font-weight: 400;
+    height: 28px;
+    line-height: 28px;
+    overflow: hidden;
+    /* padding: 0 3px; */
+    white-space: nowrap;
+}
+
+#StickyTableHeader table.banggia tr td.cell-highlight, table.banggia tr th.cell-highlight {
+    background-color: var(--bg-highlight-stickytable);
+}
+
+#StickyTableHeader table.banggia thead tr th.cell-highlight {
+    background-color: var(--bg-header-table-color);
+}
+
+#StickyTableHeader table.banggia thead tr th.cell-highlight:hover {
+    background: var(--bg-hover-stickytable);
+}
+
+#StickyTableHeader table.banggia>thead>tr th.sortable:hover {
+    background: var(--bg-hover-stickytable);
+}
+
+#StickyTableHeader table.banggia>thead>tr th div.sortable:hover {
+    background: var(--bg-hover-stickytable);
+}
+
+#StickyTableHeader a.btn-link:hover{
+    color: var( --main-brand-color);
+    background-color: var(--bg-hover-option);
+}
