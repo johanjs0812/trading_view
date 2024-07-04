@@ -83,7 +83,7 @@
 }
 
 #MatchedPrice tbody tr td.cell-highlight {
-    background-color: var(--bg-highlight-price);
+    background-color: #5151516c;
 }
 
 #MatchedPrice tr td, #MatchedPrice tr th {

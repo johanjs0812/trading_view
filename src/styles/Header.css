@@ -2,7 +2,7 @@
 
   #horizontal-menu {
     position: fixed;
-    z-index: 20;
+    z-index: 22;
     width: 100%;
     background: var(--bg-dark-color);
   }
@@ -20,6 +20,10 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+  }
+
+  #horizontal-root li:hover span{
+    color: var(--main-brand-color) !important;
   }
   
   #horizontal-root li i{

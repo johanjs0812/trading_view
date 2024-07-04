@@ -1,9 +1,9 @@
 const market = () => {
     return (
         <>
-        <div>
-            market
-        </div>
+            <div>
+                market
+            </div>
         </>
     )
 }

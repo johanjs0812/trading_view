@@ -1,0 +1,61 @@
+#MatchedPriceFooter .set-cm-menu {
+    background: #000;
+    color: #fff;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+}
+#MatchedPriceFooter .placeorder-sticky {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+#MatchedPriceFooter .btn-order {
+    background: var(--main-brand-color);
+    border: 0;
+    color: #fff;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 30px;
+    transition: background .3s;
+}
+
+#MatchedPriceFooter .btn-order:hover{
+    background-color: #f7951dc9;
+}
+
+
+#MatchedPriceFooter button, #MatchedPriceFooter input[type=button], #MatchedPriceFooter input[type=reset],#MatchedPriceFooter input[type=submit] {
+    cursor: pointer;
+}
+
+#MatchedPriceFooter .set-cm-menu ul.footer-quick-nav {
+    float: right;
+}
+
+#MatchedPriceFooter ul {
+    padding: 0 0 0 40px;
+}
+
+#MatchedPriceFooter .set-cm-menu ul.footer-quick-nav li {
+    display: block;
+    list-style: none;
+    overflow: hidden;
+    text-align: center;
+    width: 100px;
+}
+
+#MatchedPriceFooter .set-cm-menu ul.footer-quick-nav li a {
+    display: block;
+    transition: color .3s;
+}
+
+#MatchedPriceFooter .set-cm-wp {
+    font-size: 12px;
+}
+
+#MatchedPriceFooter .set-cm-menu ul.footer-quick-nav li:hover{
+    color: var(--main-brand-color);
+}

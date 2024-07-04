@@ -1,0 +1,34 @@
+#DeepAndNews{
+    width: 25%;
+    border-right: 1px solid rgba(144, 143, 143, 0.441);
+}
+
+#DeepAndNews .header .active .act-act{
+    color: var(--main-brand-color);
+}
+
+#DeepAndNews .header .act-act:hover{
+    color: var(--main-brand-color);
+}
+
+#DeepAndNews .header .active .hr {
+    min-height: 2px;
+    background-color: var(--main-brand-color);
+    border-radius: 20px;
+}
+
+#DeepAndNews .bg-row-xam{
+    background-color: #dddddda8;
+}
+
+#DeepAndNews .info-price .xam-odd:nth-child(odd) {
+    background-color: #fff;
+}
+
+#DeepAndNews .info-price .xam-odd:nth-child(2n) {
+    background-color: #f0f0f0;
+}
+
+#DeepAndNews .border-right-info {
+    border-right: 1px solid rgba(144, 143, 143, 0.263);
+}

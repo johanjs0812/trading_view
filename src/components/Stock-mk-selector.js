@@ -5,7 +5,7 @@ const StockMarketSelector = () => {
 
     return (
         <>    
-            <div id="StockMarketSelector" className="table w-full">
+            <div id="StockMarketSelector" className="table w-full" >
 
                 <div className="flex pl-5px float-left">
 

@@ -1,0 +1,11 @@
+#OrderBook{
+    width: 25%;
+}
+
+#OrderBook .bg-row-xam{
+    background-color: #dddddda8;
+}
+
+#OrderBook .header{
+    padding-bottom: 2px;
+}

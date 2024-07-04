@@ -1,0 +1,6 @@
+#CandleStickChart{
+    width: 50%;
+    height: 440px;
+    border-right: 5px solid rgba(144, 143, 143, 0.441);
+    border-bottom: 5px solid rgba(144, 143, 143, 0.441);
+}
