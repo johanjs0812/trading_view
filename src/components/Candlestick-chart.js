@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, memo } from 'react';
-import "../styles/CandleStickChart.css"
+import "../styles/CandleStickChart.css";
 
 const CandleStickChart = () => {
 

@@ -1,0 +1,64 @@
+#TrendingTickers{
+    padding-top: 40px;
+}
+
+#TrendingTickers .header-select{
+    padding-top: 80px;
+    max-width: 1260px;
+    margin-bottom: 20px;
+}
+
+#TrendingTickers .title-table {
+    max-width: 1260px;
+}
+
+#TrendingTickers .title-table thead tr{
+    border-bottom-width: 1px;
+    border-right: 1px solid var(--boder-header-table-color);
+
+}
+
+#TrendingTickers .title-table thead tr th{
+    cursor: pointer;
+    position: sticky;
+    border-bottom: 1px solid var(--boder-header-table-color);
+}
+
+#TrendingTickers .title-table thead tr {
+    background-color: #2a2c33;
+}
+
+#TrendingTickers .title-table thead tr th:hover{
+    background-color: var(--bg-hover-stickytable);
+}
+
+#TrendingTickers .title-table tbody tr td{
+    cursor: pointer;
+    position: sticky;
+    border-bottom: 1px solid var(--boder-header-table-color);
+}
+
+#TrendingTickers .title-table tbody tr{
+    border-right: 1px solid var(--boder-header-table-color);
+}
+
+#TrendingTickers .title-table tbody tr:nth-child(odd) {
+    background-color: #2a2c33;
+}
+
+#TrendingTickers .title-table tbody tr:hover{
+    background-color: var(--bg-hover-stickytable);
+}
+
+#TrendingTickers table .symbol{
+    height: 100%;
+    width: 3px;
+    background: linear-gradient(90deg, rgba(86, 86, 86, 0.495), transparent);
+    padding-right: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+

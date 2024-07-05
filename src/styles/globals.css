@@ -104,8 +104,24 @@ body::-webkit-scrollbar-track {
   padding-bottom: 2px;
 }
 
+.pl-15px{
+  padding-left: 15px;
+}
+
+.pr-15px{
+  padding-right: 15px;
+}
+
+.pt-5px{
+  padding-top: 5px;
+}
+
 .text-13px{
   font-size: 13px;
+}
+
+.text-10px{
+  font-size: 10px;
 }
 
 .h-30px{
@@ -182,4 +198,10 @@ body::-webkit-scrollbar-track {
 
 .bg-none{
   background-color: var(--color-not-click);
+}
+
+span.label-dzbd7lyV.snap-dzbd7lyV.end-dzbd7lyV {
+  border-radius: 12px 0 0 12px;
+  right: 0;
+  display: none !important;
 }
