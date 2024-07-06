@@ -43,9 +43,10 @@ const StockMarketSelector = () => {
 
                     <li className="has-sub-menu active h-30px mr-1 relative text-13px">
                         <Link href="/" title="Sàn giao dịch chứng khoán TP Hồ Chí Minh" className='active'>
-                            <span className="hose-tabs ">HOSE <i class='bx bx-caret-down'></i></span>
+                            <span className="hose-tabs ">S&P 500</span>
+                            {/* <span className="hose-tabs ">S&P 500 <i class='bx bx-caret-down'></i></span> */}
                         </Link>
-                        <ul className="sub-menu">
+                        {/* <ul className="sub-menu">
                             <li className="active">
                                 <Link href="/" className='active'><span>HOSE</span></Link>
                             </li>
@@ -61,14 +62,15 @@ const StockMarketSelector = () => {
                             <li className="">
                                 <Link href="/" >Giao dịch thỏa thuận</Link>
                             </li>
-                        </ul>
+                        </ul> */}
                     </li>
 
                     <li className="has-sub-menu h-30px mr-1 relative text-13px">
                         <Link href="/" title="Sàn giao dịch chứng khoán Hà Nội" >
-                            <span className="hnx-tabs">HNX <i class='bx bx-caret-down'></i></span>
+                            <span className="hnx-tabs">Dow Jones</span>
+                            {/* <span className="hnx-tabs">HNX <i class='bx bx-caret-down'></i></span> */}
                         </Link>
-                        <ul className="sub-menu">
+                        {/* <ul className="sub-menu">
                             <li className="">
                                 <Link href="/" ><span>HNX</span></Link>
                             </li>
@@ -82,15 +84,15 @@ const StockMarketSelector = () => {
                             <li className="">
                                 <Link href="/" >Giao dịch thỏa thuận</Link>
                             </li>
-                        </ul>
+                        </ul> */}
                     </li>
 
-                    <li className="has-sub-menu h-30px mr-1 relative text-13px">
+                    {/* <li className="has-sub-menu h-30px mr-1 relative text-13px">
                         <Link href="/" title="Các công ty đại chúng chưa niêm yết" ><span>UPCOM <i class='bx bx-caret-down'></i></span></Link>
                         <ul className="sub-menu"><li className=""><Link href="/" ><span>UPCOM</span></Link></li>
                             <li className=""><Link href="/" >Giao dịch thỏa thuận</Link></li>
                         </ul>
-                    </li>
+                    </li> */}
                 
                     <li className="has-sub-menu menu-filters h-30px mr-1 relative text-13px">
                         <Link href="/" ><span>CP ngành <i class='bx bx-caret-down'></i></span></Link>
@@ -104,7 +106,7 @@ const StockMarketSelector = () => {
                         </ul>
                     </li>
 
-                    <li className="has-sub-menu h-30px mr-1 relative text-13px">
+                    {/* <li className="has-sub-menu h-30px mr-1 relative text-13px">
                         <Link href="/" >
                             <span>Phái sinh <i class='bx bx-caret-down'></i></span> 
                             <i className="fa fa-bar-chart" ></i>
@@ -121,7 +123,7 @@ const StockMarketSelector = () => {
                             <li className=""><Link href="/" >Chứng quyền toàn thị trường</Link></li>
                             <li className=""><Link href="/" >Chứng quyền tại VND</Link></li>
                         </ul>
-                    </li>
+                    </li> */}
 
                 </ul>
 

@@ -3,7 +3,7 @@ import StockMarketSelector from '@/components/Stock-mk-selector';
 import StickyTableHeader from '@/components/Sticky-table-header';
 import MatchedPrice from '@/components/Matched-price';
 import MatchedPriceFooter from '@/components/Matched-price-footer';
-import StockChartDetail from '@/components/Stock-chart-detail';
+// import StockChartDetail from '@/components/Stock-chart-detail';
 
 const Home = () => {
   return (
@@ -12,7 +12,7 @@ const Home = () => {
         < StickyTableHeader/>
         < MatchedPrice />
         < MatchedPriceFooter />
-        < StockChartDetail />
+        {/* < StockChartDetail /> */}
     </main>
   );
 };

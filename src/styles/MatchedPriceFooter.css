@@ -23,7 +23,7 @@
 }
 
 #MatchedPriceFooter .btn-order:hover{
-    background-color: #f7951dc9;
+    background-color: var(--hover-main-brand-color);
 }
 
 

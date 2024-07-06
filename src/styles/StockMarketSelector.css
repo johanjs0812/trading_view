@@ -216,7 +216,7 @@
     background: rgba(40, 41, 47, .976);
     border: 1px solid #343434;
     border-radius: 0 0 5px 5px;
-    border-top: 2px solid #ce7b18;
+    border-top: 2px solid var(--main-brand-color);
     box-shadow: 3px 5px 20px #00000080;
     display: none;
     font-size: 95%;
