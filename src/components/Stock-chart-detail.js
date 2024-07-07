@@ -4,7 +4,7 @@ import CandleStickChart from "./Candlestick-chart";
 import DeepAndNews from "./Deep-and-news";
 import OrderBook from "./Order-book";
 
-const StockChartDetail = () => {
+const StockChartDetail = ({onHide, SymbolExchange}) => {
     return(
         <>
             <div id="StockChartDetail">
@@ -12,7 +12,7 @@ const StockChartDetail = () => {
 
                     <div className="skylight-dialog">
 
-                        <div className="skylight-close-button text-right font-semibold">
+                        <div onClick={onHide} className="skylight-close-button text-right font-semibold">
                             <i class='bx bx-x' ></i>
                         </div>
 
@@ -83,7 +83,7 @@ const StockChartDetail = () => {
                         </div>
 
                         <div id="chart-deep-market-orderbook" className="flex">
-                            < CandleStickChart />
+                            < CandleStickChart SymbolExchange={SymbolExchange} />
                             < DeepAndNews />
                             < OrderBook />
                         </div>

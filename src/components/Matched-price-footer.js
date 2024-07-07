@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import "../styles/MatchedPriceFooter.css";
+import { sp500Symbols } from "@/lib/sp500_symbols";
 
 const MatchedPriceFooter = () =>{
     return(

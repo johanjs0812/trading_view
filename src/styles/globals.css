@@ -25,8 +25,11 @@ ol, ul, li {
   --bg-dark-color: #121314;
   --bg-not-choose: #191919;
   --color-text-white: #d8d8d8;
+  
   --main-brand-color: #8e1df7;
   --hover-main-brand-color: #a766e4;
+  --bg-brand-shadow: rgba(109, 29, 247, 0.1); 
+
   --text-menu-color: #dadada;
   --bg-check-option: #7e7e7e;
   --bg-hover-option: #33343c;
@@ -44,7 +47,6 @@ ol, ul, li {
   --gia-tang-color: lime;
   --gia-giam-color: #ff3737;
   --black-color: black;
-  --bg-brand-shadow: rgba(247, 148, 29, 0.1); 
   --bg-col-head: #eee;
   --color-not-click: #333;
 }

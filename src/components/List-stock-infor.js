@@ -1,112 +1,137 @@
-const ListStockInfor = ({ data }) => {
+const ListStockInfor = ({ index, data, onShow, getSymbolExchange }) => {
 
+    let symbols = [];
     let stock = [];
-    const filteredData = data.filter(item => item !== null);
+
+    const filteredData = data ? data.filter(item => item !== null) : [];
+
+    symbols = index;
     stock = filteredData;
 
-    console.log('sto', stock)
+    const handleClick = (exchange, symbol) => {
+        
+        if (exchange === "NasdaqGS") {
+            exchange = "NASDAQ";
+        }
 
+        const data = `${exchange}:${symbol}`;
+        getSymbolExchange(data);
+        onShow();
+    };
+    
+    
     return (
         <>
             <tbody id='banggia-khop-lenh-body' className='ui-sortable ui-sortable-disabled'>
-                {stock.map((items, index) => (
-                    <tr key={index} id={items?.symbol} className="" data-scroll-page="0">
+
+                {symbols.map((item1, index) => {
+                    const item2 = stock.find(item => item.symbol === item1);
+                    return item2 ? 
+
+                    <tr key={index} id={item2.symbol} className="" data-scroll-page="0">
+
                         <td className="txtl has-tooltip company-tooltip has-symbol">
-                            <a className="symbol txt-lime" id={`${items.symbol}sym`}>
-                                <span className="has-symbol">{items.symbol}</span>
+                            <a 
+                                onClick={() => handleClick(item2.fullExchangeName, item2.symbol)} 
+                                className="symbol txt-lime" 
+                                id={`${item2.symbol}sym`}
+                            >
+                                <span className="has-symbol">{item2.symbol}</span>
                             </a>
                         </td>
 
                         <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight">
-                            <span id={`${items.symbol}ref`} className="txt-gia-tc">{items.refPrice}</span>
+                            <span id={`${item2.symbol}ref`} className="txt-gia-tc">{item2.refPrice}</span>
                         </td>
                         <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight sell">
-                            <span id={`${items.symbol}ceil`} className="txt-gia-tran">{items.ceilPrice}</span>
+                            <span id={`${item2.symbol}ceil`} className="txt-gia-tran">{item2.ceilPrice}</span>
                         </td>
                         <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight">
-                            <span id={`${items.symbol}floor`} className="txt-gia-san">{items.floorPrice}</span>
+                            <span id={`${item2.symbol}floor`} className="txt-gia-san">{item2.floorPrice}</span>
                         </td>
                         <td>
                             <span className="slider-accumulatedVol">
-                                <span id={`${items.symbol}tvol`} className="has-content">{items.accumulatedVolume}</span>
+                                <span id={`${item2.symbol}tvol`} className="has-content">{item2.accumulatedVolume}</span>
                             </span>
                         </td>
 
                         <td className="has-tooltip price-tooltip tooltip-bottom sell">
-                            <span id={`${items.symbol}bP3`} className="txt-lime">{items.bidPrice3}</span>
+                            <span id={`${item2.symbol}bP3`} className="txt-lime">{item2.bidPrice3}</span>
                         </td>
                         <td>
-                            <span id={`${items.symbol}bV3`} className="txt-lime">{items.bidVolume3}</span>
+                            <span id={`${item2.symbol}bV3`} className="txt-lime">{item2.bidVolume3}</span>
                         </td>
                         <td className="has-tooltip price-tooltip tooltip-bottom sell">
-                            <span id={`${items.symbol}bP2`} className="txt-lime">{items.bidPrice2}</span>
+                            <span id={`${item2.symbol}bP2`} className="txt-lime">{item2.bidPrice2}</span>
                         </td>
                         <td>
-                            <span id={`${items.symbol}bV2`} className="txt-lime">{items.bidVolume2}</span>
+                            <span id={`${item2.symbol}bV2`} className="txt-lime">{item2.bidVolume2}</span>
                         </td>
                         <td className="has-tooltip price-tooltip tooltip-bottom sell">
-                            <span id={`${items.symbol}bP1`} className="txt-lime">{items.bidPrice1}</span>
+                            <span id={`${item2.symbol}bP1`} className="txt-lime">{item2.bidPrice1}</span>
                         </td>
                         <td>
-                            <span id={`${items.symbol}bV1`} className="txt-lime">{items.bidVolume1}</span>
+                            <span id={`${item2.symbol}bV1`} className="txt-lime">{item2.bidVolume1}</span>
                         </td>
 
                         <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight">
-                            <span id={`${items.symbol}matchP`} className="txt-lime">{items.matchPrice}</span>
+                            <span id={`${item2.symbol}matchP`} className="txt-lime">{item2.matchPrice}</span>
                         </td>
                         <td className="cell-highlight">
-                            <span id={`${items.symbol}matchV`} className="txt-lime">{items.matchVolume}</span>
+                            <span id={`${item2.symbol}matchV`} className="txt-lime">{item2.matchVolume}</span>
                         </td>
                         <td className="cell-highlight">
                             <span data-slider-field="changeRaw" className="slider-changeRaw">
-                                <span id={`${items.symbol}change`} className="txt-lime has-content">{items.change}</span>
+                                <span id={`${item2.symbol}change`} className="txt-lime has-content">{item2.change}</span>
                             </span>
                         </td>
 
                         <td className="has-tooltip price-tooltip tooltip-bottom">
-                            <span id={`${items.symbol}oP1`} className="txt-lime">{items.offerPrice1}</span>
+                            <span id={`${item2.symbol}oP1`} className="txt-lime">{item2.offerPrice1}</span>
                         </td>
                         <td>
-                            <span id={`${items.symbol}oV1`} className="txt-lime">{items.offerVolume1}</span>
+                            <span id={`${item2.symbol}oV1`} className="txt-lime">{item2.offerVolume1}</span>
                         </td>
                         <td className="has-tooltip price-tooltip tooltip-bottom">
-                            <span id={`${items.symbol}oP2`} className="txt-lime">{items.offerPrice2}</span>
+                            <span id={`${item2.symbol}oP2`} className="txt-lime">{item2.offerPrice2}</span>
                         </td>
                         <td>
-                            <span id={`${items.symbol}oV2`} className="txt-lime">{items.offerVolume2}</span>
+                            <span id={`${item2.symbol}oV2`} className="txt-lime">{item2.offerVolume2}</span>
                         </td>
                         <td className="has-tooltip price-tooltip tooltip-bottom">
-                            <span id={`${items.symbol}oP3`} className="txt-lime">{items.offerPrice3}</span>
+                            <span id={`${item2.symbol}oP3`} className="txt-lime">{item2.offerPrice3}</span>
                         </td>
                         <td>
-                            <span id={`${items.symbol}oV3`} className="txt-lime">{items.offerVolume3}</span>
+                            <span id={`${item2.symbol}oV3`} className="txt-lime">{item2.offerVolume3}</span>
                         </td>
 
                         <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight sell">
-                            <span id={`${items.symbol}highP`} className="txt-lime">{items.highPrice}</span>
+                            <span id={`${item2.symbol}highP`} className="txt-lime">{item2.highPrice}</span>
                         </td>
                         <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight">
-                            <span id={`${items.symbol}avgP`} className="txt-lime">{items.avgPrice}</span>
+                            <span id={`${item2.symbol}avgP`} className="txt-lime">{item2.avgPrice}</span>
                         </td>
                         <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight">
-                            <span id={`${items.symbol}lowP`} className="txt-red">{items.lowPrice}</span>
+                            <span id={`${item2.symbol}lowP`} className="txt-red">{item2.lowPrice}</span>
                         </td>
 
                         <td>
-                            <span id={`${items.symbol}bV4`}></span>
+                            <span id={`${item2.symbol}bV4`}></span>
                         </td>
                         <td>
-                            <span id={`${items.symbol}sV4`}></span>
+                            <span id={`${item2.symbol}sV4`}></span>
                         </td>
 
                         <td colSpan="2" data-slider-group="foreign">
                             <div className='flex'>
-                                <p id={`${items.symbol}foreignB`} className="cell-1-2 has-content px-1.5 border-r border-454545 border-solid w-2/4">{items.foreignBuy}</p>
-                                <p id={`${items.symbol}foreignS`} className="cell-1-2 has-content px-1.5 w-2/4">{items.foreignSell}</p>
+                                <p id={`${item2.symbol}foreignB`} className="cell-1-2 has-content px-1.5 border-r border-454545 border-solid w-2/4">{item2.foreignBuy}</p>
+                                <p id={`${item2.symbol}foreignS`} className="cell-1-2 has-content px-1.5 w-2/4">{item2.foreignSell}</p>
                             </div>
                         </td>
                     </tr>
-                ))}
+                    
+                    : null;
+                })}
             </tbody>
         </>
     );

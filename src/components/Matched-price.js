@@ -1,21 +1,29 @@
+import React, { useEffect, useState, useRef } from 'react';
 import "../styles/MatchedPrice.css"
 import useApi from '@/hooks/ApiUse';
 import ListStockInfor from './List-stock-infor';
 import Loaders from './Loaders';
+import { PORT, API, YAHOO, SP500_ENDPOINT, DOWJONES_ENDPOINT } from '@/constants/Api';
+import { dowJonesSymbols } from '@/lib/dowJones_symbols';
+import { sp500Symbols } from '@/lib/sp500_symbols';
 
-const MatchedPrice = () => {
-    const { data, loading, error } = useApi('http://localhost:3000/api/v1/Sp500Index');
+const MatchedPrice = ({selectedIndex, onShow, getSymbolExchange }) => {
 
-    const StockItems = ({ Component }) => {
-        return (
-            <>
-                {Component}
-            </>
-        );
-    };
+    const { data, loading, error, updateUrl } = useApi(`${PORT}/${API}/${YAHOO}/${DOWJONES_ENDPOINT}`);
+    const [symbols, setSymbols] = useState(dowJonesSymbols);
 
+    useEffect(() => {
+        if (selectedIndex === "S&P 500") {
+          updateUrl(`${PORT}/${API}/${YAHOO}/${SP500_ENDPOINT}`);
+          setSymbols(sp500Symbols);
+        } else {
+          updateUrl(`${PORT}/${API}/${YAHOO}/${DOWJONES_ENDPOINT}`);
+          setSymbols(dowJonesSymbols);
+        }
+    }, [selectedIndex, updateUrl]);
+    
     if (loading) {
-        return <StockItems Component={<Loaders />} />;
+        return < Loaders />;
     } else {
         return (
             <>
@@ -51,7 +59,7 @@ const MatchedPrice = () => {
                         <col className="col-vol" />
                     </colgroup>
 
-                    <StockItems Component={<ListStockInfor data={data} />} />
+                    <ListStockInfor index={symbols} data={data} onShow={onShow} getSymbolExchange={getSymbolExchange} />
                 </table>
             </>
         );

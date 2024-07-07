@@ -1,10 +1,10 @@
 import yahooFinance from 'yahoo-finance2';
-import { sp500Symbols } from '../../../lib/sp500_symbols';
+import { dowJonesSymbols } from '@/lib/dowJones_symbols';
 
-const SP500INDEX = async (req, res) => {
+const DOWJONESINDEX = async (req, res) => {
   try {
     const responses = await Promise.all(
-      sp500Symbols.map(async symbol => {
+        dowJonesSymbols.map(async symbol => {
         try {
           const quote = await yahooFinance.quote(symbol);
           return quote;
@@ -22,4 +22,4 @@ const SP500INDEX = async (req, res) => {
   }
 }
 
-export default SP500INDEX;
+export default DOWJONESINDEX;
