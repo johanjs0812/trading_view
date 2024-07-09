@@ -1,4 +1,5 @@
 import "../styles/OrderBook.css"
+// import splitTrades from "@/helpers/splitTrades";
 import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -19,7 +20,10 @@ import {
     Legend
   );
   
-const OrderBook = () => {
+const OrderBook = ({SymbolResponse}) => {
+    // console.log('@',SymbolResponse)
+    // const trade = splitTrades(SymbolResponse.Infoby1p);
+    // console.log('@',trade)
 
     const data = {
         labels: ['20.4', '20.45', '20.5', '20.55', '20.6', '20.65', '20.7', '20.75', '20.8', '20.85', '20.9', '20.95', '21', '21.05', '21.1', '21.15', '21.2'],

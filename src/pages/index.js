@@ -10,6 +10,7 @@ const Home = () => {
   const [selectedIndex, setSelectedIndex] = useState('Dow Jones');
   const [showStockDetail, setStockDetail] = useState(false);
   const [SymbolExchange, setData] = useState("NASDAQ:AAPL");
+  const [SymbolResponse, setRes] = useState({});
 
   const handleButtonClick = () => {
     setStockDetail(true);
@@ -19,8 +20,9 @@ const Home = () => {
     setStockDetail(false);
   };
 
-  const getSymbolExchange = (SymbolExchange) => {
+  const getSymbolExchange = (SymbolExchange, SymbolResponse) => {
     setData(SymbolExchange);
+    setRes(SymbolResponse);
   };
 
   return (
@@ -29,7 +31,7 @@ const Home = () => {
         < StickyTableHeader/>
         < MatchedPrice selectedIndex={selectedIndex} onShow={handleButtonClick} getSymbolExchange={getSymbolExchange}  />
         < MatchedPriceFooter />
-        { showStockDetail && < StockChartDetail onHide={handleHideButtonClick} SymbolExchange={SymbolExchange} /> }
+        { showStockDetail && < StockChartDetail onHide={handleHideButtonClick} SymbolExchange={SymbolExchange} SymbolResponse={SymbolResponse} /> }
     </main>
   );
 };

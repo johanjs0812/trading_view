@@ -1,3 +1,13 @@
+import roundToTwoDecimals from "@/helpers/roundtoTwoPercent";
+import roundToUSD from "@/helpers/roundtoTwoUSD";
+import formatNumberToUSD from "@/helpers/formattoUSD";
+import formatNumberINT from "@/helpers/formatNumberINT";
+import calculateAveragePrice from "@/helpers/calculateAveragePrice";
+import getLastVolumePrice from "@/helpers/getLastVolumePrice";
+import getNthTrade from "@/helpers/getNthTrade";
+import compareAndAddClass from "@/helpers/compareAndAddClass";
+import isNegativeNumber from "@/helpers/isNegativeNumber";
+
 const ListStockInfor = ({ index, data, onShow, getSymbolExchange }) => {
 
     let symbols = [];
@@ -8,14 +18,14 @@ const ListStockInfor = ({ index, data, onShow, getSymbolExchange }) => {
     symbols = index;
     stock = filteredData;
 
-    const handleClick = (exchange, symbol) => {
+    const handleClick = (exchange, symbol, data) => {
         
         if (exchange === "NasdaqGS") {
             exchange = "NASDAQ";
         }
 
-        const data = `${exchange}:${symbol}`;
-        getSymbolExchange(data);
+        const es = `${exchange}:${symbol}`;
+        getSymbolExchange(es, data);
         onShow();
     };
     
@@ -27,12 +37,12 @@ const ListStockInfor = ({ index, data, onShow, getSymbolExchange }) => {
                 {symbols.map((item1, index) => {
                     const item2 = stock.find(item => item.symbol === item1);
                     return item2 ? 
-
+                        
                     <tr key={index} id={item2.symbol} className="" data-scroll-page="0">
 
                         <td className="txtl has-tooltip company-tooltip has-symbol">
                             <a 
-                                onClick={() => handleClick(item2.fullExchangeName, item2.symbol)} 
+                                onClick={() => handleClick(item2.fullExchangeName, item2.symbol, item2)} 
                                 className="symbol txt-lime" 
                                 id={`${item2.symbol}sym`}
                             >
@@ -40,93 +50,283 @@ const ListStockInfor = ({ index, data, onShow, getSymbolExchange }) => {
                             </a>
                         </td>
 
-                        <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight">
-                            <span id={`${item2.symbol}ref`} className="txt-gia-tc">{item2.refPrice}</span>
+                        <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight" style={{width:"9.75%"}}>
+                            <span id={`${item2.symbol}ref`} className="has-content">{"$" + formatNumberToUSD(item2.marketCap)}</span>
                         </td>
-                        <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight sell">
+                        {/* <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight sell">
                             <span id={`${item2.symbol}ceil`} className="txt-gia-tran">{item2.ceilPrice}</span>
                         </td>
                         <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight">
                             <span id={`${item2.symbol}floor`} className="txt-gia-san">{item2.floorPrice}</span>
-                        </td>
+                        </td> */}
+                        
                         <td>
                             <span className="slider-accumulatedVol">
-                                <span id={`${item2.symbol}tvol`} className="has-content">{item2.accumulatedVolume}</span>
+                                <span id={`${item2.symbol}tvol`} 
+                                className={`has-content ${isNegativeNumber(item2.fiftyTwoWeekChangePercent)}`}
+                                
+                                >
+                                    {roundToTwoDecimals(item2.fiftyTwoWeekChangePercent)}
+                                </span>
                             </span>
                         </td>
 
                         <td className="has-tooltip price-tooltip tooltip-bottom sell">
-                            <span id={`${item2.symbol}bP3`} className="txt-lime">{item2.bidPrice3}</span>
+                            <span id={`${item2.symbol}bP3`}                                 
+                                className={`${compareAndAddClass(
+                                    getNthTrade(item2.Infoby1p, "buy", 3, "Close"), 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`} 
+                            >
+                                {getNthTrade(item2.Infoby1p, "buy", 3, "Close")}
+                            </span>
                         </td>
                         <td>
-                            <span id={`${item2.symbol}bV3`} className="txt-lime">{item2.bidVolume3}</span>
+                            <span id={`${item2.symbol}bV3`}                                 
+                                className={`${compareAndAddClass(
+                                    getNthTrade(item2.Infoby1p, "buy", 3, "Close"), 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`} 
+                            >
+                            {getNthTrade(item2.Infoby1p, "buy", 3, "Volume")}
+                            </span>
                         </td>
                         <td className="has-tooltip price-tooltip tooltip-bottom sell">
-                            <span id={`${item2.symbol}bP2`} className="txt-lime">{item2.bidPrice2}</span>
+                            <span id={`${item2.symbol}bP2`}                                
+                                className={`${compareAndAddClass(
+                                    getNthTrade(item2.Infoby1p, "buy", 2, "Close"), 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`} 
+                            >
+                                {getNthTrade(item2.Infoby1p, "buy", 2, "Close")}
+                            </span>
                         </td>
                         <td>
-                            <span id={`${item2.symbol}bV2`} className="txt-lime">{item2.bidVolume2}</span>
+                            <span id={`${item2.symbol}bV2`}                      
+                                className={`${compareAndAddClass(
+                                    getNthTrade(item2.Infoby1p, "buy", 2, "Close"), 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`}  
+                            >{getNthTrade(item2.Infoby1p, "buy", 2, "Volume")}</span>
                         </td>
                         <td className="has-tooltip price-tooltip tooltip-bottom sell">
-                            <span id={`${item2.symbol}bP1`} className="txt-lime">{item2.bidPrice1}</span>
+                            <span id={`${item2.symbol}bP1`}                        
+                                className={`${compareAndAddClass(
+                                    getNthTrade(item2.Infoby1p, "buy", 1, "Close"), 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`}                             
+                            >
+                                {getNthTrade(item2.Infoby1p, "buy", 1, "Close")}
+                            </span>
                         </td>
                         <td>
-                            <span id={`${item2.symbol}bV1`} className="txt-lime">{item2.bidVolume1}</span>
+                            <span id={`${item2.symbol}bV1`}                          
+                                className={`${compareAndAddClass(
+                                    getNthTrade(item2.Infoby1p, "buy", 1, "Close"), 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`}                            
+                            >
+                                {getNthTrade(item2.Infoby1p, "buy", 1, "Volume")}
+                            </span>
                         </td>
 
                         <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight">
-                            <span id={`${item2.symbol}matchP`} className="txt-lime">{item2.matchPrice}</span>
+                            <span id={`${item2.symbol}matchP`} 
+                                className={`has-content ${compareAndAddClass(
+                                    item2.regularMarketPrice, 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`} 
+                            >
+                                {roundToUSD(item2.regularMarketPrice)}
+                            </span>
                         </td>
                         <td className="cell-highlight">
-                            <span id={`${item2.symbol}matchV`} className="txt-lime">{item2.matchVolume}</span>
+                            <span id={`${item2.symbol}matchV`}        
+                                className={`has-content ${compareAndAddClass(
+                                    item2.regularMarketPrice, 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`}                     
+                            >{ getLastVolumePrice(item2.Infoby1p)}</span>
                         </td>
                         <td className="cell-highlight">
-                            <span data-slider-field="changeRaw" className="slider-changeRaw">
-                                <span id={`${item2.symbol}change`} className="txt-lime has-content">{item2.change}</span>
+                            <span className="slider-changeRaw">
+                                <span id={`${item2.symbol}change`} 
+                                    className={`has-content ${compareAndAddClass(
+                                        item2.regularMarketPrice, 
+                                        item2.regularMarketPreviousClose, 
+                                        "txt-red", 
+                                        "txt-gia-tc", 
+                                        "txt-lime"
+                                    )}`}  
+                                >{roundToTwoDecimals(item2.regularMarketChangePercent)}</span>
                             </span>
                         </td>
 
                         <td className="has-tooltip price-tooltip tooltip-bottom">
-                            <span id={`${item2.symbol}oP1`} className="txt-lime">{item2.offerPrice1}</span>
+                            <span id={`${item2.symbol}oP1`} 
+                                className={`${compareAndAddClass(
+                                    getNthTrade(item2.Infoby1p, "sell", 1, "Close"), 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`} 
+                            >
+                                {getNthTrade(item2.Infoby1p, "sell", 1, "Close")}
+                            </span>
                         </td>
                         <td>
-                            <span id={`${item2.symbol}oV1`} className="txt-lime">{item2.offerVolume1}</span>
+                            <span id={`${item2.symbol}oV1`} 
+                                className={`${compareAndAddClass(
+                                    getNthTrade(item2.Infoby1p, "sell", 1, "Close"), 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`} 
+                            >
+                                {getNthTrade(item2.Infoby1p, "sell", 1, "Volume")}
+                            </span>
                         </td>
+
                         <td className="has-tooltip price-tooltip tooltip-bottom">
-                            <span id={`${item2.symbol}oP2`} className="txt-lime">{item2.offerPrice2}</span>
+                            <span id={`${item2.symbol}oP2`} 
+                                className={`${compareAndAddClass(
+                                    getNthTrade(item2.Infoby1p, "sell", 2, "Close"), 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`} 
+                            >
+                                {getNthTrade(item2.Infoby1p, "sell", 2, "Close")}
+                            </span>
                         </td>
                         <td>
-                            <span id={`${item2.symbol}oV2`} className="txt-lime">{item2.offerVolume2}</span>
+                            <span id={`${item2.symbol}oV2`} 
+                                className={`${compareAndAddClass(
+                                    getNthTrade(item2.Infoby1p, "sell", 2, "Close"), 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`} 
+                            >
+                                {getNthTrade(item2.Infoby1p, "sell", 2, "Volume")}
+                            </span>
                         </td>
+
                         <td className="has-tooltip price-tooltip tooltip-bottom">
-                            <span id={`${item2.symbol}oP3`} className="txt-lime">{item2.offerPrice3}</span>
+                            <span id={`${item2.symbol}oP3`}                                 
+                                className={`${compareAndAddClass(
+                                    getNthTrade(item2.Infoby1p, "sell", 3, "Close"), 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`}  
+                            >
+                                {getNthTrade(item2.Infoby1p, "sell", 3, "Close")}
+                            </span>
                         </td>
                         <td>
-                            <span id={`${item2.symbol}oV3`} className="txt-lime">{item2.offerVolume3}</span>
+                            <span id={`${item2.symbol}oV3`} 
+                                className={`${compareAndAddClass(
+                                    getNthTrade(item2.Infoby1p, "sell", 3, "Close"), 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`}  
+                            >{getNthTrade(item2.Infoby1p, "sell", 3, "Volume")}</span>
                         </td>
 
                         <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight sell">
-                            <span id={`${item2.symbol}highP`} className="txt-lime">{item2.highPrice}</span>
-                        </td>
-                        <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight">
-                            <span id={`${item2.symbol}avgP`} className="txt-lime">{item2.avgPrice}</span>
-                        </td>
-                        <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight">
-                            <span id={`${item2.symbol}lowP`} className="txt-red">{item2.lowPrice}</span>
-                        </td>
-
-                        <td>
-                            <span id={`${item2.symbol}bV4`}></span>
-                        </td>
-                        <td>
-                            <span id={`${item2.symbol}sV4`}></span>
+                            <span id={`${item2.symbol}highP`} 
+                                className={`${compareAndAddClass(
+                                    item2.regularMarketDayRange.high, 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`}  
+                            >{roundToUSD(item2.regularMarketDayRange.high)}</span>
                         </td>
 
-                        <td colSpan="2" data-slider-group="foreign">
-                            <div className='flex'>
-                                <p id={`${item2.symbol}foreignB`} className="cell-1-2 has-content px-1.5 border-r border-454545 border-solid w-2/4">{item2.foreignBuy}</p>
-                                <p id={`${item2.symbol}foreignS`} className="cell-1-2 has-content px-1.5 w-2/4">{item2.foreignSell}</p>
-                            </div>
+                        <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight">
+                            <span id={`${item2.symbol}avgP`} 
+                                className={`${compareAndAddClass(
+                                    calculateAveragePrice(item2.regularMarketOpen, item2.regularMarketPrice, item2.regularMarketDayHigh, item2.regularMarketDayLow), 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`}  
+                            >{
+                                calculateAveragePrice(item2.regularMarketOpen, item2.regularMarketPrice, 
+                                                    item2.regularMarketDayHigh, item2.regularMarketDayLow)
+                            }</span>
+                        </td>
+
+                        <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight">
+                            <span id={`${item2.symbol}lowP`}                             
+                                className={`${compareAndAddClass(
+                                    item2.regularMarketDayRange.low, 
+                                    item2.regularMarketPreviousClose, 
+                                    "txt-red", 
+                                    "txt-gia-tc", 
+                                    "txt-lime"
+                                )}`}     
+                            >{roundToUSD(item2.regularMarketDayRange.low)}</span>
+                        </td>
+
+                        <td style={{width: "4.5%"}} className="cell-highlight txt-gia-tc">
+                            <span id={`${item2.symbol}bV4`}>{roundToUSD(item2.regularMarketPreviousClose)}</span>
+                        </td>
+                        <td style={{width: "4.45%"}}     
+                            className={`cell-highlight ${compareAndAddClass(
+                                item2.regularMarketOpen, 
+                                item2.regularMarketPreviousClose, 
+                                "txt-red", 
+                                "txt-gia-tc", 
+                                "txt-lime"
+                            )}`}     
+                        >
+                            <span id={`${item2.symbol}sV4`}>
+                                {roundToUSD(item2.regularMarketOpen)}
+                            </span>
+                        </td>
+
+                        <td style={{ width: "7.3%" }} 
+
+                        >
+                            <span>
+                                {formatNumberINT(item2.regularMarketVolume)}
+                            </span>
                         </td>
                     </tr>
                     
