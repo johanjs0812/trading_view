@@ -15,7 +15,7 @@ const CandleStickChart = ({ SymbolExchange }) => {
         script.type = "text/javascript";
         script.async = true;
 
-        console.log('xxx', SymbolExchange)
+        // console.log('xxx', SymbolExchange)
 
         const symbol = SymbolExchange || "NASDAQ:AAPL";
 

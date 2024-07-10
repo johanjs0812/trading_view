@@ -130,7 +130,7 @@ const StockChartDetail = ({onHide, SymbolExchange, SymbolResponse}) => {
     
                             <div id="chart-deep-market-orderbook" className="flex">
                                 < CandleStickChart SymbolExchange={SymbolExchange} />
-                                < DeepAndNews />
+                                < DeepAndNews SymbolResponse={SymbolResponse} />
                                 < OrderBook SymbolResponse={SymbolResponse} />
                             </div>
     

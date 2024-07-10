@@ -1,5 +1,9 @@
 import "../styles/OrderBook.css"
-// import splitTrades from "@/helpers/splitTrades";
+import splitTrades from "@/helpers/splitTrades";
+import extractAndSortClose from "@/helpers/extractAndSortClose";
+import extractAndSortVolume from "@/helpers/extractAndSortVolume";
+import buyingandsellingPower from "@/helpers/buyingandsellingPower";
+
 import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -21,23 +25,24 @@ import {
   );
   
 const OrderBook = ({SymbolResponse}) => {
-    // console.log('@',SymbolResponse)
-    // const trade = splitTrades(SymbolResponse.Infoby1p);
-    // console.log('@',trade)
+    let dulieu = {};
+    if (SymbolResponse) {
+        dulieu = splitTrades(SymbolResponse.Infoby1p);
+    }
 
     const data = {
-        labels: ['20.4', '20.45', '20.5', '20.55', '20.6', '20.65', '20.7', '20.75', '20.8', '20.85', '20.9', '20.95', '21', '21.05', '21.1', '21.15', '21.2'],
+        labels: extractAndSortClose(dulieu.buyTrades, dulieu.sellTrades),
         datasets: [
             {
                 label: 'Mua chủ động',
-                data: [49.90, 30, 17.70, 107.90, 265.80, 229.10, 504.90, 371.20, 352.30, 300, 441.10, 414.80, 1001.80, 390, 594.20, 144.50, 82.70],
+                data: extractAndSortVolume(dulieu.buyTrades),
                 backgroundColor: 'rgba(0, 255, 0, 0.5)',
                 borderColor: 'rgba(0, 255, 0, 1)',
                 borderWidth: 1
             },
             {
                 label: 'Bán chủ động',
-                data: [0, 0, 0, 107.90, 265.80, 229.10, 504.90, 371.20, 352.30, 300, 441.10, 414.80, 1001.80, 390, 594.20, 144.50, 82.70],
+                data:extractAndSortVolume(dulieu.sellTrades),
                 backgroundColor: 'rgba(255, 0, 0, 0.5)',
                 borderColor: 'rgba(255, 0, 0, 1)',
                 borderWidth: 1
@@ -111,12 +116,12 @@ const OrderBook = ({SymbolResponse}) => {
             <div className="footer-ct bg-row-xam flex">
                 <div className="flex gap-1 items-center py-1.5 w-2/4 justify-center">
                     <div className="bg-buy size-2.5"></div>
-                    <div className="text-xs">Mua: 64%</div>
+                    <div className="text-xs">Mua: {buyingandsellingPower(extractAndSortVolume(dulieu.buyTrades),extractAndSortVolume(dulieu.sellTrades), "buy")}%</div>
                 </div>
 
                 <div className="flex gap-1 items-center py-1.5 w-2/4 justify-center">
                     <div className="bg-sell size-2.5"></div>
-                    <div className="text-xs">Bán: 38%</div>
+                    <div className="text-xs">Bán: {buyingandsellingPower(extractAndSortVolume(dulieu.buyTrades),extractAndSortVolume(dulieu.sellTrades), "sell")}%</div>
                 </div>
             </div>
         </div>      

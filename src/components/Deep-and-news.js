@@ -1,6 +1,40 @@
 import "../styles/DeepAndNews.css";
+import splitTrades from "@/helpers/splitTrades";
+import roundToUSD from "@/helpers/roundtoTwoUSD";
+import formatNumberINT from "@/helpers/formatNumberINT";
 
-const DeepAndNews = () => {
+const renderRows = (buy, sell) => {
+
+    // console.log("f12", buy, sell)
+
+    if (!buy || !sell || !Array.isArray(buy) || !Array.isArray(sell)) {
+        return null;
+    }
+
+    buy = buy.slice(0, 3);
+
+    return buy.map((muaItem, index) => (
+        <div className="flex text-xs xam-odd" key={index}>
+            <div className="w-2/4 flex border-right-info">
+                <div className="w-2/5 text-center py-1.5">{formatNumberINT(muaItem.Volume )}</div>
+                <div className="w-3/5 text-center py-1.5 txt-green">{roundToUSD(muaItem.Close)}</div>
+            </div>
+
+            <div className="w-2/4 flex">
+                <div className="w-3/5 text-center py-1.5 txt-green">{roundToUSD(sell[index]?.Close)}</div>
+                <div className="w-2/5 text-center py-1.5">{formatNumberINT(sell[index]?.Volume)}</div>
+            </div>
+        </div>
+    ));
+};
+
+const DeepAndNews = ({SymbolResponse}) => {
+
+    let data = {};
+
+    if (SymbolResponse) {
+        data = splitTrades(SymbolResponse.Infoby1p);
+    }
 
     return(
         <>
@@ -31,17 +65,7 @@ const DeepAndNews = () => {
 
                 <div className="info-price">
 
-                    <div className="flex text-xs xam-odd">
-                        <div className="w-2/4 flex border-right-info">
-                            <div className="w-2/5 text-center py-1.5">20</div>
-                            <div className="w-3/5 text-center py-1.5 txt-green">5.12</div>
-                        </div>
-
-                        <div className="w-2/4 flex">
-                            <div className="w-3/5 text-center py-1.5 txt-green">5.21</div>
-                            <div className="w-2/5 text-center py-1.5">30</div>
-                        </div>
-                    </div>
+                    {renderRows(data.buyTrades, data.sellTrades)}
 
                 </div>
             </div>
