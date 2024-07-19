@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 
-const MiniChart = () => {
+const MiniChart = ({ symbol, fullExchangeName, id }) => {
   useEffect(() => {
-
-    const scriptId = 'tradingview-widget-script';
+    const scriptId = `tradingview-widget-script-${id}`;
     const existingScript = document.getElementById(scriptId);
 
     if (!existingScript) {
@@ -12,7 +11,7 @@ const MiniChart = () => {
       script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js';
       script.async = true;
       script.innerHTML = JSON.stringify({
-        symbol: "FX:EURUSD",
+        symbol: symbol || `FX:EURUSD`,
         width: "100%",
         height: "100%",
         locale: "en",
@@ -27,20 +26,18 @@ const MiniChart = () => {
         hideTopToolbar: true
       });
 
-      document.getElementById('tradingview-widget-container').appendChild(script);
+      document.getElementById(`tradingview-widget-container-${id}`).appendChild(script);
 
       const label = document.querySelector('span.label-dzbd7lyV.snap-dzbd7lyV.end-dzbd7lyV');
       if (label) {
         label.style.display = 'none';
       }
     }
-
-  }, []);
+  }, [id, symbol]);
 
   return (
-    <div className="tradingview-widget-container" id="tradingview-widget-container" style={{maxHeight: "39px"}}>
-      <div className="tradingview-widget-container__widget">
-      </div>
+    <div className="tradingview-widget-container" id={`tradingview-widget-container-${id}`} style={{ maxHeight: "39px" }}>
+      <div className="tradingview-widget-container__widget"></div>
     </div>
   );
 };

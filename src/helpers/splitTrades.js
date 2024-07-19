@@ -1,20 +1,21 @@
 export default function splitTrades(trades) {
     const sellTrades = [];
     const buyTrades = [];
+    if (Array.isArray(trades)) {
+        trades.forEach(trade => {
+            if (trade.Close < trade.Open) {
+                sellTrades.push(trade); 
+            } else if (trade.Close > trade.Open) {
+                buyTrades.push(trade);  
+            }
+        });
 
-    trades.forEach(trade => {
-        if (trade.Close < trade.Open) {
-            sellTrades.push(trade); 
-        } else if (trade.Close > trade.Open) {
-            buyTrades.push(trade);  
-        }
-    });
+        sellTrades.sort((a, b) => b.Close - a.Close);
+        buyTrades.sort((a, b) => b.Close - a.Close);
 
-    sellTrades.sort((a, b) => b.Close - a.Close);
-    buyTrades.sort((a, b) => b.Close - a.Close);
-
-    return {
-        sellTrades,
-        buyTrades
-    };
+        return {
+            sellTrades,
+            buyTrades
+        };
+    }
 }

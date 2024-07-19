@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import "../styles/MatchedPrice.css"
 import useApi from '@/hooks/ApiUse';
 import ListStockInfor from './List-stock-infor';
-// import Loaders from './Loaders';
 import { PORT, API, YAHOO, SP500_ENDPOINT, DOWJONES_ENDPOINT } from '@/constants/Api';
 import { dowJonesSymbols } from '@/lib/dowJones_symbols';
 import { sp500Symbols } from '@/lib/sp500_symbols';
@@ -19,6 +18,7 @@ const MatchedPrice = ({selectedIndex, onShow, getSymbolExchange }) => {
           setSymbols(sp500Symbols);
         } else {
           updateUrl(`${PORT}/${API}/${YAHOO}/${DOWJONES_ENDPOINT}`);
+          console.log(`${PORT}/${API}/${YAHOO}/${DOWJONES_ENDPOINT}`);
           setSymbols(dowJonesSymbols);
         }
     }, [selectedIndex, updateUrl]);

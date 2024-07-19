@@ -4,7 +4,7 @@ const formatNumberToUSD = (number) => {
     }
 
     if (isNaN(number)) {
-        throw new Error('Input must be a number or a string representing a number');
+        return number;
     }
 
     return new Intl.NumberFormat('en-US', {

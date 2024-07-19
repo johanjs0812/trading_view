@@ -1,8 +1,36 @@
+import React, { useEffect, useState, useRef } from 'react';
+
 import "../styles/TrendingTickers.css";
 import MiniChart from "./Mini-chart";
 import RangeBar from "./Range-bar";
 
+import { PORT, API, YAHOO, DOWJONES_ENDPOINT } from '@/constants/Api';
+import LoaderStart from './LoadersStart';
+
+import useApi from '@/hooks/ApiUse';
+
+import formatNumberToUSD from '@/helpers/formattoUSD';
+import formatNumberINT from '@/helpers/formatNumberINT';
+import roundToTwoDecimals from '@/helpers/roundtoTwoPercent';
+import { formatDate } from '@/helpers/formatTime';
+
 const TrendingTickers = () => {
+
+    const { data, loading } = useApi(`${PORT}/${API}/${YAHOO}/${DOWJONES_ENDPOINT}`);
+    const [top20Data, set20] = useState();
+
+    useEffect(() => {
+        const sortedData = data?.sort((a, b) => b.regularMarketVolume - a.regularMarketVolume);
+        set20(sortedData?.slice(0, 20));
+    }, [data]);
+
+    if (loading) {
+        return (
+            <>
+            < LoaderStart />
+            </>
+        )
+    }
 
     return(
         <>
@@ -37,144 +65,76 @@ const TrendingTickers = () => {
                     </thead>
 
                     <tbody className="text-13px">
-                        <tr>
-                            <td className="text-left pl-1.5 pr-15px pb-1.5 pt-5px align-middle font-semibold">
-                                BTC-USD
-                                <div className="symbol"></div>
-                            </td>
-                            <td className="text-left pr-2.5 pb-1.5 pt-5px pl-2.5 align-middle">Bitcoin USD</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >54,525.59</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle" >6:09AM UTC</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-4,308.80</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-7.32%</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >51.165B</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-medium" >1.075T</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle">< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle" >< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle"  style={{height:"39px"}}> < MiniChart /> </td>
-                        </tr>
 
-                        <tr>
-                            <td className="text-left pl-1.5 pr-15px pb-1.5 pt-5px align-middle font-semibold">
-                                BTC-USD
-                                <div className="symbol"></div>
-                            </td>
-                            <td className="text-left pr-2.5 pb-1.5 pt-5px pl-2.5 align-middle">Bitcoin USD</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >54,525.59</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle" >6:09AM UTC</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-4,308.80</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-7.32%</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >51.165B</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-medium" >1.075T</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle">< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle" >< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle"  style={{height:"39px"}}> < MiniChart /> </td>
-                        </tr>
+                        {top20Data?.map((item, index) => (
+                            <tr key={index}>
+                                <td className="text-left pl-1.5 pr-15px pb-1.5 pt-5px align-middle font-semibold">
+                                    {item.symbol}
+                                    <div className="symbol"></div>
+                                </td>
+                                <td className="text-left pr-2.5 pb-1.5 pt-5px pl-2.5 align-middle">{item.longName}</td>
+                                <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold">${item.regularMarketPrice}</td>
+                                <td className="text-right pl-5 pb-1.5 pt-5px align-middle">{formatDate(item?.regularMarketTime)}</td>
+                                
+                                <td 
+                                    className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold"
+                                    style={{ 
+                                        color: item.regularMarketChange === 0 
+                                        ? 'var(--TC-color)' 
+                                        : item.regularMarketChangePercent < 0 
+                                        ? 'var(--gia-giam-color)' 
+                                        : 'var(--gia-tang-color)' 
+                                    }}
+                                >
+                                {item.regularMarketChange?.toFixed(2)}
+                                </td>
 
-                        <tr>
-                            <td className="text-left pl-1.5 pr-15px pb-1.5 pt-5px align-middle font-semibold">
-                                BTC-USD
-                                <div className="symbol"></div>
-                            </td>
-                            <td className="text-left pr-2.5 pb-1.5 pt-5px pl-2.5 align-middle">Bitcoin USD</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >54,525.59</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle" >6:09AM UTC</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-4,308.80</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-7.32%</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >51.165B</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-medium" >1.075T</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle">< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle" >< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle"  style={{height:"39px"}}> < MiniChart /> </td>
-                        </tr>
+                                <td 
+                                    className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold"
+                                    style={{ 
+                                        color: item.regularMarketChangePercent === 0 
+                                        ? 'var(--TC-color)' 
+                                        : item.regularMarketChangePercent < 0 
+                                        ? 'var(--gia-giam-color)' 
+                                        : 'var(--gia-tang-color)' 
+                                    }}
+                                >
+                                {roundToTwoDecimals(item.regularMarketChangePercent)}
+                                </td>
 
-                        <tr>
-                            <td className="text-left pl-1.5 pr-15px pb-1.5 pt-5px align-middle font-semibold">
-                                BTC-USD
-                                <div className="symbol"></div>
-                            </td>
-                            <td className="text-left pr-2.5 pb-1.5 pt-5px pl-2.5 align-middle">Bitcoin USD</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >54,525.59</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle" >6:09AM UTC</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-4,308.80</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-7.32%</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >51.165B</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-medium" >1.075T</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle">< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle" >< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle"  style={{height:"39px"}}> < MiniChart /> </td>
-                        </tr>
+                                <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold">{formatNumberINT(item.regularMarketVolume)}</td>
+                                <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-medium">{formatNumberINT(item.marketCap)}</td>
+                                <td className="pl-5 pb-1.5 pt-5px align-middle">
+                                    <RangeBar 
+                                    range={item.regularMarketDayRange} 
+                                    change={item.regularMarketChange} 
+                                    R2high={item?.Infoby1p[item?.Infoby1p?.length - 1].High}
+                                    R2low={item?.Infoby1p[item?.Infoby1p?.length - 1].Low}
+                                    />
+                                </td>
+                                <td className="pr-2.5 pl-5 pb-1.5 pt-5px align-middle">
+                                    <RangeBar 
+                                    range={item.fiftyTwoWeekRange} 
+                                    change={item.regularMarketChange}
+                                    R2high={item.regularMarketDayRange?.high}
+                                    R2low={item.regularMarketDayRange?.low}
+                                    />
+                                </td>
+                                <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle" style={{ height: "39px" }}>
+                                    <MiniChart 
+                                        symbol={item.symbol} 
+                                        fullExchangeName={item.fullExchangeName} 
+                                        id={index}
+                                    />  
+                                </td>
+                            </tr>
+                        ))}
 
-                        <tr>
-                            <td className="text-left pl-1.5 pr-15px pb-1.5 pt-5px align-middle font-semibold">
-                                BTC-USD
-                                <div className="symbol"></div>
-                            </td>
-                            <td className="text-left pr-2.5 pb-1.5 pt-5px pl-2.5 align-middle">Bitcoin USD</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >54,525.59</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle" >6:09AM UTC</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-4,308.80</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-7.32%</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >51.165B</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-medium" >1.075T</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle">< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle" >< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle"  style={{height:"39px"}}> < MiniChart /> </td>
-                        </tr>
-
-                        <tr>
-                            <td className="text-left pl-1.5 pr-15px pb-1.5 pt-5px align-middle font-semibold">
-                                BTC-USD
-                                <div className="symbol"></div>
-                            </td>
-                            <td className="text-left pr-2.5 pb-1.5 pt-5px pl-2.5 align-middle">Bitcoin USD</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >54,525.59</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle" >6:09AM UTC</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-4,308.80</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-7.32%</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >51.165B</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-medium" >1.075T</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle">< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle" >< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle"  style={{height:"39px"}}> < MiniChart /> </td>
-                        </tr>
-
-                        <tr>
-                            <td className="text-left pl-1.5 pr-15px pb-1.5 pt-5px align-middle font-semibold">
-                                BTC-USD
-                                <div className="symbol"></div>
-                            </td>
-                            <td className="text-left pr-2.5 pb-1.5 pt-5px pl-2.5 align-middle">Bitcoin USD</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >54,525.59</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle" >6:09AM UTC</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-4,308.80</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-7.32%</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >51.165B</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-medium" >1.075T</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle">< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle" >< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle"  style={{height:"39px"}}> < MiniChart /> </td>
-                        </tr>
-
-                        <tr>
-                            <td className="text-left pl-1.5 pr-15px pb-1.5 pt-5px align-middle font-semibold">
-                                BTC-USD
-                                <div className="symbol"></div>
-                            </td>
-                            <td className="text-left pr-2.5 pb-1.5 pt-5px pl-2.5 align-middle">Bitcoin USD</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >54,525.59</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle" >6:09AM UTC</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-4,308.80</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >-7.32%</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-semibold" >51.165B</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle font-medium" >1.075T</td>
-                            <td className="text-right pl-5 pb-1.5 pt-5px align-middle">< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle" >< RangeBar/></td>
-                            <td className="text-left pr-2.5 pl-5 pb-1.5 pt-5px align-middle"  style={{height:"39px"}}> < MiniChart /> </td>
-                        </tr>
                     </tbody>
+
                 </table>
             </div>
+            <br></br>
         </>
     )
 

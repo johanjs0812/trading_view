@@ -26,9 +26,9 @@ ol, ul, li {
   --bg-not-choose: #191919;
   --color-text-white: #d8d8d8;
   
-  --main-brand-color: #8e1df7;
-  --hover-main-brand-color: #a766e4;
-  --bg-brand-shadow: rgba(109, 29, 247, 0.1); 
+  --main-brand-color: #2f9515;
+  --hover-main-brand-color: #66e47b;
+  --bg-brand-shadow: rgba(73, 247, 29, 0.1); 
 
   --text-menu-color: #dadada;
   --bg-check-option: #7e7e7e;
@@ -137,6 +137,10 @@ body::-webkit-scrollbar-track {
 
 .txt-green{
   color: var(--gia-tang-color);
+}
+
+.txt-gia-giam{
+  color: var(--gia-giam-color);
 }
 
 .txt-gia-san{

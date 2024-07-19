@@ -1,6 +1,14 @@
 import '../styles/Header.css';
+import { useState } from 'react';
+import Link from 'next/link';
 
 const Header = () => {
+
+    const [activeItem, setActiveItem] = useState('Bang_gia');
+
+    const handleSetActive = (id) => {
+        setActiveItem(id);
+    };
 
     return(
         <>
@@ -21,9 +29,19 @@ const Header = () => {
                 </div>
 
                 <div className="flex items-center w-full" id="horizontal-root">
-                    <li id="Bang_gia">
-                        <span class="title-listmenu active">Bảng giá</span>
+
+                    <li id="Bang_gia" onClick={() => handleSetActive('Bang_gia')}>
+                        <Link href="/" passHref>
+                            <span className={`title-listmenu ${activeItem === 'Bang_gia' ? 'active' : ''}`}>Bảng giá</span>
+                        </Link>
                     </li>
+
+                    <li id="Giao_dich" onClick={() => handleSetActive('Giao_dich')}>
+                        <Link href="/market" passHref>
+                            <span className={`title-listmenu ${activeItem === 'Giao_dich' ? 'active' : ''}`}>Đang là xu hướng</span>
+                        </Link>
+                    </li>
+
                     <li id="Giao_dich">
                         <span class="title-listmenu ">Giao dịch cơ sở</span>
                         <i class='bx bx-caret-down'></i>

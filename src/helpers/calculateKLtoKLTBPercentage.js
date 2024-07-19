@@ -7,7 +7,7 @@ export default function calculateKLtoKLTBPercentage(khoiLuong, klTb10Phien) {
     }
 
     if (typeof khoiLuong !== 'number' || typeof klTb10Phien !== 'number' || klTb10Phien === 0) {
-        throw new Error('Invalid input. Expected numbers and non-zero klTb10Phien.');
+        return ""
     }
 
     const klKltbPercentage = (khoiLuong / klTb10Phien) * 100;

@@ -268,13 +268,13 @@ const ListStockInfor = ({ index, data, onShow, getSymbolExchange }) => {
                         <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight sell">
                             <span id={`${item2.symbol}highP`} 
                                 className={`${compareAndAddClass(
-                                    item2.regularMarketDayRange.high, 
+                                    item2.regularMarketDayRange?.high, 
                                     item2.regularMarketPreviousClose, 
                                     "txt-red", 
                                     "txt-gia-tc", 
                                     "txt-lime"
                                 )}`}  
-                            >{roundToUSD(item2.regularMarketDayRange.high)}</span>
+                            >{roundToUSD(item2.regularMarketDayRange?.high)}</span>
                         </td>
 
                         <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight">
@@ -295,13 +295,13 @@ const ListStockInfor = ({ index, data, onShow, getSymbolExchange }) => {
                         <td className="has-tooltip price-tooltip tooltip-bottom cell-highlight">
                             <span id={`${item2.symbol}lowP`}                             
                                 className={`${compareAndAddClass(
-                                    item2.regularMarketDayRange.low, 
+                                    item2.regularMarketDayRange?.low, 
                                     item2.regularMarketPreviousClose, 
                                     "txt-red", 
                                     "txt-gia-tc", 
                                     "txt-lime"
                                 )}`}     
-                            >{roundToUSD(item2.regularMarketDayRange.low)}</span>
+                            >{roundToUSD(item2.regularMarketDayRange?.low)}</span>
                         </td>
 
                         <td style={{width: "4.5%"}} className="cell-highlight txt-gia-tc">

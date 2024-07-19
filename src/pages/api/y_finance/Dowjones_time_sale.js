@@ -11,7 +11,8 @@ export default async function time_sale(req, res) {
   }
 
   try {
-    const { stdout, stderr } = await execAsync(`python src/scripts/get_time_sale.py ${ticker}`);
+    const command = `cmd /c "cd src\\scripts && venv\\Scripts\\activate && python get_time_sale.py ${ticker}"`;
+    const { stdout, stderr } = await execAsync(command);
     if (stderr) {
       console.error('Error executing Python script:', stderr);
       throw new Error(stderr);
